@@ -11,43 +11,22 @@
     works.forEach(work => work.classList.toggle('hidden', filter !== 'all' && work.dataset.category !== filter));
   }));
   const videos = [...document.querySelectorAll('.work video, .category-tile video')];
-  const lazyVideos = videos.filter(video => video.hasAttribute('data-lazy-video'));
   const startVideo = video => {
     video.autoplay = true;
     video.muted = true;
     video.loop = true;
     video.playsInline = true;
-    video.preload = video.hasAttribute('data-lazy-video') ? 'metadata' : 'auto';
-    video.dataset.started = 'true';
+    video.preload = 'auto';
     const playback = video.play();
     if (playback && typeof playback.catch === 'function') playback.catch(() => {});
   };
-  const pauseVideo = video => video.pause();
-  videos.filter(video => !video.hasAttribute('data-lazy-video')).forEach(video => startVideo(video));
-  if (lazyVideos.length && 'IntersectionObserver' in window) {
-    const videoObserver = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        const video = entry.target;
-        video.dataset.inViewport = String(entry.isIntersecting);
-        if (entry.isIntersecting) startVideo(video);
-        else pauseVideo(video);
-      });
-    }, { rootMargin: '240px 0px', threshold: .01 });
-    lazyVideos.forEach(video => videoObserver.observe(video));
-  } else {
-    lazyVideos.forEach(video => startVideo(video));
-  }
+  videos.forEach(video => startVideo(video));
   works.forEach(work => {
     const video = work.querySelector('video');
     if (video) work.addEventListener('mouseenter', () => startVideo(video));
   });
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-      videos.forEach(video => pauseVideo(video));
-      return;
-    }
-    videos.filter(video => !video.hasAttribute('data-lazy-video') || video.dataset.inViewport === 'true')
-      .forEach(video => startVideo(video));
+    if (!document.hidden) videos.forEach(video => startVideo(video));
   });
   const revealItems = [...document.querySelectorAll('#featured .ref-section-head, #featured .featured-card, #directions .ref-section-head, #directions .direction-link, #operations .ref-section-head, #operations .operation-card, #operations .internship-panel')];
   if (revealItems.length) {
