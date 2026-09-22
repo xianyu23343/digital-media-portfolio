@@ -22,12 +22,23 @@
   const hero = document.querySelector('.legacy-hero');
   const stack = document.querySelector('.hero-poster-stack');
   if (hero && stack && matchMedia('(pointer:fine)').matches) {
-    hero.addEventListener('pointermove', event => {
+    let heroPointerFrame = 0;
+    let heroPointerX = 0;
+    let heroPointerY = 0;
+    const updateHeroPointer = () => {
+      heroPointerFrame = 0;
       const rect = hero.getBoundingClientRect();
-      stack.style.setProperty('--mx', ((event.clientX - rect.left) / rect.width - .5).toFixed(3));
-      stack.style.setProperty('--my', ((event.clientY - rect.top) / rect.height - .5).toFixed(3));
+      stack.style.setProperty('--mx', ((heroPointerX - rect.left) / rect.width - .5).toFixed(3));
+      stack.style.setProperty('--my', ((heroPointerY - rect.top) / rect.height - .5).toFixed(3));
+    };
+    hero.addEventListener('pointermove', event => {
+      heroPointerX = event.clientX;
+      heroPointerY = event.clientY;
+      if (!heroPointerFrame) heroPointerFrame = requestAnimationFrame(updateHeroPointer);
     });
     hero.addEventListener('pointerleave', () => {
+      if (heroPointerFrame) cancelAnimationFrame(heroPointerFrame);
+      heroPointerFrame = 0;
       stack.style.setProperty('--mx', 0);
       stack.style.setProperty('--my', 0);
     });
@@ -51,9 +62,18 @@
   updateProgress();
 
   if (matchMedia('(pointer:fine)').matches) {
+    let pointerFrame = 0;
+    let pointerX = 0;
+    let pointerY = 0;
+    const updatePointer = () => {
+      pointerFrame = 0;
+      document.documentElement.style.setProperty('--pointer-x', `${pointerX}px`);
+      document.documentElement.style.setProperty('--pointer-y', `${pointerY}px`);
+    };
     addEventListener('pointermove', event => {
-      document.documentElement.style.setProperty('--pointer-x', `${event.clientX}px`);
-      document.documentElement.style.setProperty('--pointer-y', `${event.clientY}px`);
+      pointerX = event.clientX;
+      pointerY = event.clientY;
+      if (!pointerFrame) pointerFrame = requestAnimationFrame(updatePointer);
     }, { passive: true });
   }
 })();
