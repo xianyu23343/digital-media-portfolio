@@ -121,7 +121,8 @@
       const image = work.querySelector('img');
       if (video) {
         const modalVideo = document.createElement('video');
-        modalVideo.src = video.getAttribute('src') || video.currentSrc || video.src;
+        const originalSource = video.dataset.fullSrc || video.getAttribute('src') || video.currentSrc || video.src;
+        modalVideo.src = video.dataset.webSrc || originalSource.replace('assets/projects/', 'assets/web/projects/');
         modalVideo.autoplay = true;
         modalVideo.muted = true;
         modalVideo.loop = true;
@@ -137,7 +138,9 @@
         requestAnimationFrame(playModalVideo);
       } else if (image) {
         const modalImage = image.cloneNode();
+        modalImage.src = image.currentSrc || image.src;
         modalImage.loading = 'eager';
+        modalImage.fetchPriority = 'high';
         media.appendChild(modalImage);
       }
     };
