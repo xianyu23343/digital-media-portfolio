@@ -17,7 +17,7 @@
     video.muted = true;
     video.loop = true;
     video.playsInline = true;
-    video.preload = 'metadata';
+    video.preload = video.hasAttribute('data-lazy-video') ? 'metadata' : 'auto';
     video.dataset.started = 'true';
     const playback = video.play();
     if (playback && typeof playback.catch === 'function') playback.catch(() => {});
