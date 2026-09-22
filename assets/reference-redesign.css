@@ -328,3 +328,15 @@ body.reference-theme .site-header .resume{flex:0 0 auto;white-space:nowrap}
   .direction-section .direction-grid{grid-template-columns:1fr}
   .direction-section .direction-link{min-height:148px}
 }
+
+
+/* Five-card featured row: keep the added photography pick in the same visual rhythm on desktop. */
+@media(min-width:861px){
+  .featured-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}
+  .featured-card{min-height:330px}
+  .featured-card .featured-media{height:180px}
+  .featured-card.featured-card-accent .featured-media{margin:18px 18px 0;height:145px}
+  .featured-card .featured-body{padding:18px 18px 20px}
+  .featured-card h3{font-size:24px}
+  .featured-card p{font-size:13px}
+}
