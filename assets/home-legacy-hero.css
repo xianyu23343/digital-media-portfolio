@@ -212,3 +212,42 @@
 @media(prefers-reduced-motion:reduce){
   .home-reference .legacy-hero .hero-poster-stack .hero-poster{animation:none!important;transition:none}
 }
+
+/* Cover composition refinement: clearer header breathing room, calmer title balance, and a more readable poster deck. */
+.home-reference .legacy-hero .site-header .logo,
+.home-reference .legacy-hero .site-header .resume{top:clamp(18px,2.2vw,30px)}
+.home-reference .legacy-hero .hero-inner{padding-bottom:clamp(8px,1.8vh,20px)}
+.home-reference .legacy-hero .hero-kicker{letter-spacing:.18em;margin-bottom:24px}
+.home-reference .legacy-hero h1{max-width:760px}
+.home-reference .legacy-hero .script{margin-top:-12px;margin-bottom:24px}
+.home-reference .legacy-hero .hero-footer{margin-top:20px}
+.home-reference .legacy-hero .hero-explore{width:min(100%,520px);gap:12px}
+.home-reference .legacy-hero .hero-explore p{font-size:17px;line-height:1.7}
+.home-reference .legacy-hero .hero-poster-stack{right:clamp(3%,5.5vw,9%);top:clamp(100px,12vh,138px);width:clamp(520px,40vw,680px);height:clamp(360px,43vw,570px)}
+.home-reference .legacy-hero .hero-poster-stack .hero-poster{width:clamp(190px,14.8vw,270px);padding:11px;border:1px solid rgba(11,59,135,.12);box-shadow:14px 18px 0 rgba(4,24,65,.3);isolation:isolate}
+.home-reference .legacy-hero .hero-poster-stack .hero-poster img{filter:saturate(.86) contrast(1.08)}
+.home-reference .legacy-hero .hero-poster-stack .hero-poster span{padding:9px 3px 1px;font-size:9px;letter-spacing:.1em;color:#174078}
+.home-reference .legacy-hero .poster-stack-card-a{left:0;top:18%;--tilt:-5deg}
+.home-reference .legacy-hero .poster-stack-card-b{left:24%;top:5%;--tilt:-1.5deg}
+.home-reference .legacy-hero .poster-stack-card-c{left:48%;top:11%;--tilt:2deg}
+.home-reference .legacy-hero .poster-stack-card-d{left:72%;top:20%;--tilt:5deg}
+.home-reference .legacy-hero .hero-poster-stack:hover .hero-poster:not(:hover){filter:brightness(.66) saturate(.68);opacity:.55;transform:translateX(-7px) rotate(var(--tilt)) scale(.97)}
+.home-reference .legacy-hero .hero-poster-stack .hero-poster:hover{transform:translateY(-22px) rotate(0deg) scale(1.16);box-shadow:20px 26px 0 rgba(4,24,65,.4)}
+
+@media(max-width:980px){
+  .home-reference .legacy-hero .hero-poster-stack{right:2%;width:clamp(400px,46vw,560px);height:clamp(320px,48vw,500px)}
+  .home-reference .legacy-hero .hero-poster-stack .hero-poster{width:clamp(165px,18vw,220px)}
+  .home-reference .legacy-hero .hero-explore{width:min(100%,440px)}
+}
+@media(max-width:700px){
+  .home-reference .legacy-hero .site-header .logo,
+  .home-reference .legacy-hero .site-header .resume{top:14px}
+  .home-reference .legacy-hero .hero-poster-stack{right:-4%;top:15%;width:320px;height:310px}
+  .home-reference .legacy-hero .hero-poster-stack .hero-poster{width:142px;padding:8px}
+  .home-reference .legacy-hero .poster-stack-card-a{left:0;top:15%}
+  .home-reference .legacy-hero .poster-stack-card-b{left:21%;top:3%}
+  .home-reference .legacy-hero .poster-stack-card-c{left:42%;top:10%}
+  .home-reference .legacy-hero .poster-stack-card-d{display:none}
+  .home-reference .legacy-hero .hero-poster-stack .hero-poster:hover{transform:translateY(-12px) rotate(0deg) scale(1.08)}
+  .home-reference .legacy-hero .hero-explore p{font-size:15px;line-height:1.65}
+}
