@@ -3,6 +3,7 @@ dialog#workDetail{box-sizing:border-box;border:0;padding:0;width:min(1100px,calc
 dialog#workDetail::backdrop{background:rgba(23,23,23,.76)}
 .work-detail-card{position:relative;box-sizing:border-box;padding:28px 34px;background:#fffdf9;min-height:100%}
 .work-detail-close{position:absolute;top:14px;right:20px;border:0;background:transparent;color:#13244a;font-size:28px;line-height:1;cursor:pointer;z-index:2}
+.catalog-card:focus-visible,.work-detail-close:focus-visible{outline:3px solid #f57418;outline-offset:4px}
 .work-detail-kicker{color:#f57418;font-size:11px;letter-spacing:.12em}
 .work-detail h3{margin:12px 50px 15px 0;color:#171717;font-size:clamp(34px,4vw,56px);line-height:.95;letter-spacing:-.08em}
 .work-detail p{max-width:700px;margin:0;color:#546078;line-height:1.55}

@@ -84,8 +84,11 @@
     const isNativeDialog = modal instanceof HTMLDialogElement;
     const media = modal.querySelector('.work-detail-media, .modal-media');
     const modalCard = modal.querySelector('.work-detail-card, .modal-card');
+    const closeButton = modal.querySelector('.work-detail-close, .modal-close');
+    let lastWorkTrigger = null;
     const clearMedia = () => { while (media.firstChild) media.removeChild(media.firstChild); };
     const close = () => {
+      if (isNativeDialog ? !modal.open : !modal.classList.contains('open')) return;
       if (isNativeDialog && modal.open) modal.close();
       modal.classList.remove('is-poster-detail');
       modal.classList.remove('open');
@@ -94,8 +97,10 @@
       modal.style.removeProperty('pointer-events');
       clearMedia();
       document.body.classList.remove('modal-open');
+      lastWorkTrigger?.focus({ preventScroll: true });
     };
     const openWork = work => {
+      lastWorkTrigger = work;
       modal.classList.toggle('is-poster-detail', work.dataset.category === 'poster');
       modal.querySelector('#modalType').textContent = work.dataset.type;
       modal.querySelector('#modalTitle').textContent = work.dataset.title;
@@ -112,6 +117,7 @@
         modal.style.pointerEvents = 'auto';
       }
       document.body.classList.add('modal-open');
+      closeButton?.focus({ preventScroll: true });
       if (modalCard && !isNativeDialog) {
         modalCard.scrollTop = 0;
         Object.assign(modalCard.style, { position: 'relative', top: 'auto', left: 'auto', transform: 'none', zIndex: 'auto', display: 'block', opacity: '1', visibility: 'visible' });
@@ -148,11 +154,20 @@
       const work = event.target.closest('.work.catalog-card');
       if (work) openWork(work);
     });
-    const closeButton = modal.querySelector('.work-detail-close, .modal-close');
+    document.querySelectorAll('.work.catalog-card').forEach(work => {
+      work.tabIndex = 0;
+      work.setAttribute('role', 'button');
+      work.setAttribute('aria-label', `查看作品：${work.dataset.title || work.querySelector('h3')?.textContent || '作品详情'}`);
+      work.addEventListener('keydown', event => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+        openWork(work);
+      });
+    });
     if (closeButton) closeButton.addEventListener('click', close);
     modal.addEventListener('click', e => { if (e.target === modal) close(); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
-    if (isNativeDialog) modal.addEventListener('close', () => { clearMedia(); document.body.classList.remove('modal-open'); });
+    if (isNativeDialog) modal.addEventListener('close', () => { clearMedia(); document.body.classList.remove('modal-open'); lastWorkTrigger?.focus({ preventScroll: true }); });
   }
   const pageRevealItems = [...document.querySelectorAll('.about-page [data-reveal], .method-page [data-reveal]')];
   if (pageRevealItems.length) {
