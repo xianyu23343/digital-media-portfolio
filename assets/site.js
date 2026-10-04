@@ -3,7 +3,7 @@
   document.querySelectorAll('[data-page]').forEach(link => {
     if (link.getAttribute('href') === current || (current === 'index.html' && link.getAttribute('href') === 'index.html')) link.classList.add('active');
   });
-  const filters = [...document.querySelectorAll('.filter')];
+  const filters = [...document.querySelectorAll('.filter:not(.category-tile)')];
   const works = [...document.querySelectorAll('.work')];
   filters.forEach(btn => btn.addEventListener('click', () => {
     filters.forEach(b => b.classList.remove('active')); btn.classList.add('active');
@@ -85,7 +85,13 @@
     const media = modal.querySelector('.work-detail-media, .modal-media');
     const modalCard = modal.querySelector('.work-detail-card, .modal-card');
     const closeButton = modal.querySelector('.work-detail-close, .modal-close');
+    const previousButton = modal.querySelector('#workPrevious');
+    const nextButton = modal.querySelector('#workNext');
+    const fitButton = modal.querySelector('#workFit');
+    const position = modal.querySelector('#workPosition');
     let lastWorkTrigger = null;
+    let activeWork = null;
+    const visibleWorks = () => [...document.querySelectorAll('.work.catalog-card:not(.hidden)')];
     const clearMedia = () => { while (media.firstChild) media.removeChild(media.firstChild); };
     const close = () => {
       if (isNativeDialog ? !modal.open : !modal.classList.contains('open')) return;
@@ -99,9 +105,21 @@
       document.body.classList.remove('modal-open');
       lastWorkTrigger?.focus({ preventScroll: true });
     };
-    const openWork = work => {
-      lastWorkTrigger = work;
+    const openWork = (work, navigating = false) => {
+      if (!navigating) lastWorkTrigger = work;
+      activeWork = work;
+      modal.classList.remove('is-enlarged');
       modal.classList.toggle('is-poster-detail', work.dataset.category === 'poster');
+      const visible = visibleWorks();
+      const index = visible.indexOf(work);
+      if (position) position.textContent = `${index + 1} / ${visible.length}`;
+      if (previousButton) previousButton.disabled = index <= 0;
+      if (nextButton) nextButton.disabled = index >= visible.length - 1;
+      if (fitButton) {
+        fitButton.hidden = !work.querySelector('img');
+        fitButton.textContent = '放大查看';
+        fitButton.setAttribute('aria-pressed', 'false');
+      }
       modal.querySelector('#modalType').textContent = work.dataset.type;
       modal.querySelector('#modalTitle').textContent = work.dataset.title;
       modal.querySelector('#modalCopy').textContent = work.dataset.copy;
@@ -117,7 +135,7 @@
         modal.style.pointerEvents = 'auto';
       }
       document.body.classList.add('modal-open');
-      closeButton?.focus({ preventScroll: true });
+      if (!navigating) closeButton?.focus({ preventScroll: true });
       if (modalCard && !isNativeDialog) {
         modalCard.scrollTop = 0;
         Object.assign(modalCard.style, { position: 'relative', top: 'auto', left: 'auto', transform: 'none', zIndex: 'auto', display: 'block', opacity: '1', visibility: 'visible' });
@@ -129,6 +147,7 @@
         const modalVideo = document.createElement('video');
         const originalSource = video.dataset.fullSrc || video.getAttribute('src') || video.currentSrc || video.src;
         modalVideo.src = video.dataset.webSrc || originalSource.replace('assets/projects/', 'assets/web/projects/');
+        modalVideo.poster = video.poster;
         modalVideo.autoplay = true;
         modalVideo.muted = true;
         modalVideo.loop = true;
@@ -150,6 +169,25 @@
         media.appendChild(modalImage);
       }
     };
+    const navigate = offset => {
+      const visible = visibleWorks();
+      const next = visible[visible.indexOf(activeWork) + offset];
+      if (next) openWork(next, true);
+    };
+    previousButton?.addEventListener('click', () => navigate(-1));
+    nextButton?.addEventListener('click', () => navigate(1));
+    fitButton?.addEventListener('click', () => {
+      const enlarged = modal.classList.toggle('is-enlarged');
+      fitButton.textContent = enlarged ? '适应屏幕' : '放大查看';
+      fitButton.setAttribute('aria-pressed', String(enlarged));
+      const image = media.querySelector('img');
+      if (enlarged && image?.dataset.fullSrc && !image.dataset.originalRequested) {
+        image.dataset.originalRequested = 'true';
+        const full = new Image();
+        full.onload = () => { if (media.contains(image)) image.src = full.src; };
+        full.src = image.dataset.fullSrc;
+      }
+    });
     document.addEventListener('click', event => {
       const work = event.target.closest('.work.catalog-card');
       if (work) openWork(work);
@@ -167,7 +205,22 @@
     if (closeButton) closeButton.addEventListener('click', close);
     modal.addEventListener('click', e => { if (e.target === modal) close(); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+    modal.addEventListener('keydown', event => {
+      if (event.target.closest('video,input,textarea,select')) return;
+      if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+        event.preventDefault();
+        navigate(event.key === 'ArrowLeft' ? -1 : 1);
+      }
+    });
     if (isNativeDialog) modal.addEventListener('close', () => { clearMedia(); document.body.classList.remove('modal-open'); lastWorkTrigger?.focus({ preventScroll: true }); });
+    const featuredProject = new URLSearchParams(location.search).get('project');
+    if (featuredProject) requestAnimationFrame(() => {
+      const selected = [...document.querySelectorAll('.work.catalog-card')].find(work => {
+        const source = work.querySelector('[data-full-src]')?.dataset.fullSrc || '';
+        return source.split('/').pop().replace(/\.[^.]+$/, '') === featuredProject;
+      });
+      if (selected && !selected.classList.contains('hidden')) openWork(selected);
+    });
   }
   const pageRevealItems = [...document.querySelectorAll('.about-page [data-reveal], .method-page [data-reveal]')];
   if (pageRevealItems.length) {

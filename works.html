@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="assets/reference-redesign.css">
   <link rel="stylesheet" href="assets/work-modal.css?v=interaction-1">
   <link rel="stylesheet" href="assets/concept-2026.css?v=7">
+  <link rel="stylesheet" href="assets/ui-refinement.css?v=1">
 </head>
 <body class="page-fade reference-theme catalog-page">
   <header class="site-header">
@@ -28,7 +29,7 @@
   <main class="catalog-main">
     <section class="catalog-hero">
       <div><div class="ref-kicker">02 / PORTFOLIO · WORK ARCHIVE</div><h1>全部作品</h1></div>
-      <div><p>按方向整理我的练习、项目和视觉实验。点击分类，可以快速找到同一系列里的全部作品。</p><span class="catalog-meta">05 DIRECTIONS / 28 PROJECTS</span></div>
+      <div><p>按方向整理我的练习、项目和视觉实验。点击分类，可以快速找到同一系列里的全部作品。</p><span class="catalog-meta">05 DIRECTIONS / 27 PROJECTS</span></div>
     </section>
 
     <div class="portfolio-signal-strip" aria-hidden="true">
@@ -39,20 +40,20 @@
 
     <section class="category-browser" id="categories">
       <div class="category-browser-inner">
-        <div class="browser-title"><h2>作品分类</h2><p>选择一个方向开始浏览 / FILTER BY DIRECTION</p></div>
-        <div class="category-filter-grid">
-          <button class="filter category-tile active" data-filter="all" type="button"><span class="tile-number">00</span><strong>全部作品</strong><small>ALL PROJECTS</small><img src="assets/previews/mono-key-visual.webp" alt="全部作品预览" loading="eager" decoding="async"></button>
-          <button class="filter category-tile" data-filter="motion" type="button"><span class="tile-number">01</span><strong>AE动效制作</strong><small>AE / MG MOTION</small><video muted autoplay loop playsinline preload="auto" data-priority-video src="assets/previews/projects/mg-01-preview.mp4" poster="assets/previews/projects/mg-01-poster.webp" data-full-src="assets/projects/mg-01.mp4" aria-label="AE动效制作预览"></video></button>
-          <button class="filter category-tile" data-filter="aigc" type="button"><span class="tile-number">02</span><strong>AIGC 视觉</strong><small>AIGC VISUAL</small><video muted loop playsinline preload="none" data-lazy-video src="assets/previews/projects/soda-ad-preview.mp4" poster="assets/previews/projects/soda-ad-poster.webp" data-full-src="assets/projects/soda-ad.mp4" aria-label="AIGC 视觉预览"></video></button>
-          <button class="filter category-tile" data-filter="poster" type="button"><span class="tile-number">03</span><strong>海报设计</strong><small>POSTER DESIGN</small><img src="assets/previews/projects/poster-tidal-protocol.webp" alt="海报设计预览" loading="eager" decoding="async"></button>
-          <button class="filter category-tile" data-filter="blender" type="button"><span class="tile-number">04</span><strong>3D建模</strong><small>3D MODELING</small><img src="assets/previews/projects/room-2.webp" alt="Blender 卧室空间预览" loading="eager" decoding="async"></button>
-          <button class="filter category-tile" data-filter="photography" type="button"><span class="tile-number">05</span><strong>摄影剪辑</strong><small>PHOTOGRAPHY EDITING</small><video muted loop playsinline preload="none" data-lazy-video src="assets/previews/projects/photography-duhuo-web-preview.mp4" poster="assets/previews/projects/photography-duhuo-web-poster.webp" data-full-src="assets/projects/photography-duhuo-web.mp4" aria-label="摄影剪辑预览"></video></button>
+        <div class="browser-title"><h2>作品分类</h2></div>
+        <div class="category-filter-grid" role="group" aria-label="按作品方向筛选">
+          <button class="filter category-tile active" data-filter="all" type="button" aria-pressed="true"><strong>全部作品</strong><small class="filter-count">27</small></button>
+          <button class="filter category-tile" data-filter="motion" type="button" aria-pressed="false"><strong>AE动效制作</strong><small class="filter-count">4</small></button>
+          <button class="filter category-tile" data-filter="aigc" type="button" aria-pressed="false"><strong>AIGC 视觉</strong><small class="filter-count">4</small></button>
+          <button class="filter category-tile" data-filter="poster" type="button" aria-pressed="false"><strong>海报设计</strong><small class="filter-count">10</small></button>
+          <button class="filter category-tile" data-filter="blender" type="button" aria-pressed="false"><strong>3D建模</strong><small class="filter-count">6</small></button>
+          <button class="filter category-tile" data-filter="photography" type="button" aria-pressed="false"><strong>摄影剪辑</strong><small class="filter-count">3</small></button>
         </div>
       </div>
     </section>
 
     <section class="all-works" id="all-works">
-      <div class="ref-section-head"><div><div class="ref-kicker">WORK ARCHIVE</div><h2 id="catalogHeading">全部作品</h2></div><p id="catalogCount">29 个项目 · 点击卡片查看详情</p></div>
+      <div class="ref-section-head"><div><div class="ref-kicker">WORK ARCHIVE</div><h2 id="catalogHeading">全部作品</h2></div><p id="catalogCount" role="status" aria-live="polite">27 个项目 · 点击卡片查看详情</p></div>
       <div class="work-grid catalog-grid">
         <div class="catalog-group-label" data-category-label="motion"><div><span class="catalog-group-index">01</span><strong>AE动效制作</strong></div><small>AE / MG MOTION · 04 PROJECTS</small></div>
         <article class="work catalog-card" data-category="motion" data-title="MG1 · 动态练习" data-type="AE / MG MOTION" data-year="2025" data-copy="以图形、节奏和转场为核心的 AE / MG 动画练习。" data-software="After Effects · Premiere">
@@ -130,7 +131,7 @@
         <article class="work catalog-card" data-category="blender" data-title="3D建模视频 · Blender Showreel" data-type="BLENDER 3D" data-year="2025" data-copy="以三维空间、镜头运动和渲染节奏为核心的建模作品展示。" data-software="Blender · Video Editing">
           <div class="work-media"><video muted loop playsinline preload="none" data-lazy-video src="assets/previews/projects/blender-3d-showreel-preview.mp4" poster="assets/previews/projects/blender-3d-showreel-poster.webp" data-full-src="assets/projects/blender-3d-showreel.mp4"></video></div><div class="work-info"><div class="work-index"><span>24 — BLENDER SHOWREEL</span><span>2025</span></div><h3>3D建模<br>Showreel</h3><p>空间与镜头展示</p><span class="work-arrow">↗</span></div>
         </article>
-        <div class="catalog-group-label" data-category-label="photography"><div><span class="catalog-group-index">05</span><strong>摄影剪辑</strong></div><small>PHOTOGRAPHY EDITING · 04 PROJECTS</small></div>
+        <div class="catalog-group-label" data-category-label="photography"><div><span class="catalog-group-index">05</span><strong>摄影剪辑</strong></div><small>PHOTOGRAPHY EDITING · 03 PROJECTS</small></div>
         <article class="work catalog-card" data-category="photography" data-title="毒祸 · 摄影作品" data-type="PHOTOGRAPHY" data-year="2024" data-copy="摄影作品《毒祸》，以影像记录现实观察和氛围变化。" data-software="Photography · Video">
           <div class="work-media"><video muted loop playsinline preload="none" data-lazy-video src="assets/previews/projects/photography-duhuo-web-preview.mp4" poster="assets/previews/projects/photography-duhuo-web-poster.webp" data-full-src="assets/projects/photography-duhuo-web.mp4"></video></div><div class="work-info"><div class="work-index"><span>25 — PHOTOGRAPHY</span><span>2024</span></div><h3>毒祸<br>Photography</h3><p>影像与观察</p><span class="work-arrow">↗</span></div>
         </article>
@@ -148,6 +149,12 @@
   <dialog class="work-detail" id="workDetail" aria-labelledby="modalTitle">
     <div class="work-detail-card">
       <button class="work-detail-close" type="button" aria-label="关闭作品详情">×</button>
+      <div class="work-detail-toolbar" aria-label="作品浏览控制">
+        <button id="workPrevious" type="button" aria-label="上一个作品">←</button>
+        <span id="workPosition" aria-live="polite"></span>
+        <button id="workNext" type="button" aria-label="下一个作品">→</button>
+        <button id="workFit" type="button" aria-pressed="false" hidden>放大查看</button>
+      </div>
       <div class="work-detail-kicker" id="modalType"></div>
       <h3 id="modalTitle"></h3>
       <p id="modalCopy"></p>
@@ -155,8 +162,9 @@
       <div class="work-detail-meta"><span id="modalYear"></span><span id="modalSoftware"></span></div>
     </div>
   </dialog>
-  <script src="assets/site.js?v=interaction-1"></script>
+  <script src="assets/site.js?v=refinement-1"></script>
   <script src="assets/concept-2026.js?v=4"></script>
+  <script src="assets/ui-refinement.js?v=1"></script>
   <script>
     const catalogFilters=[...document.querySelectorAll('.category-tile')];
     const catalogCards=[...document.querySelectorAll('.catalog-card')];
@@ -170,13 +178,20 @@
       catalogLabels.forEach(label=>label.classList.toggle('hidden',filter!=='all'&&label.dataset.categoryLabel!==filter));
       catalogHeading.textContent=labels[filter];
       catalogCount.textContent=`${String(visible.length).padStart(2,'0')} 个项目 · 点击卡片查看详情`;
+      catalogFilters.forEach(button=>{
+        const active=button.dataset.filter===filter;
+        button.classList.toggle('active',active);
+        button.setAttribute('aria-pressed',String(active));
+        button.querySelector('.filter-count').textContent=button.dataset.filter==='all'?catalogCards.length:catalogCards.filter(card=>card.dataset.category===button.dataset.filter).length;
+      });
+      document.querySelector('.catalog-meta').textContent=`05 DIRECTIONS / ${catalogCards.length} PROJECTS`;
     }
-    catalogFilters.forEach(button=>button.addEventListener('click',()=>{catalogFilters.forEach(item=>item.classList.remove('active'));button.classList.add('active');refreshCatalog(button.dataset.filter);document.querySelector('#all-works').scrollIntoView({behavior:'smooth',block:'start'})}));
-    const hashFilter=location.hash.slice(1);
-    if(labels[hashFilter]){
-      const initialButton=catalogFilters.find(button=>button.dataset.filter===hashFilter);
-      if(initialButton){catalogFilters.forEach(item=>item.classList.remove('active'));initialButton.classList.add('active');refreshCatalog(hashFilter);requestAnimationFrame(()=>document.querySelector('#all-works').scrollIntoView({behavior:'auto',block:'start'}));}
-    }
+    const scrollToWorks=()=>document.querySelector('#all-works').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
+    catalogFilters.forEach(button=>button.addEventListener('click',()=>{refreshCatalog(button.dataset.filter);history.replaceState(null,'',`${location.pathname}${location.search}#${button.dataset.filter}`);scrollToWorks()}));
+    const applyHash=()=>{const filter=location.hash.slice(1);refreshCatalog(labels[filter]?filter:'all')};
+    applyHash();
+    if(labels[location.hash.slice(1)])requestAnimationFrame(()=>document.querySelector('#all-works').scrollIntoView({behavior:'auto',block:'start'}));
+    window.addEventListener('hashchange',()=>{applyHash();scrollToWorks()});
   </script>
 </body>
 </html>
